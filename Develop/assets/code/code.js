@@ -11,6 +11,7 @@ function initDay () {
     // pull schedule from local storage
     if (localStorage.getItem("schedule")) {
         var tmpSchedule = JSON.parse(localStorage.getItem("schedule"));
+        // recreate moments from saved strings
         for (var i = 0; i < tmpSchedule.length; i++) {
             schedule.push([moment(tmpSchedule[i][0]),tmpSchedule[i][1]]);
         }
@@ -21,11 +22,12 @@ function initDay () {
             var dayTime = moment(9+i,"HH");
             schedule.push([dayTime,""]);
         }
+        // store default schedule
         localStorage.setItem("schedule",JSON.stringify(schedule));
     }
-    console.log(schedule);
 }
 
+// build and display the schedule
 function buildContent() {
     // time-block container
     var newSection = $('<section class="container-fluid"></section>')
@@ -53,35 +55,28 @@ interval = setInterval( function() {
     $('#currentDay').text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
 }, 1000);
 
+// start the program
 initDay();
 buildContent();
 
 // action listeners
 // save buttons
-$('.saveBtn').on("click",function(){
-    console.log("Save: " + $(this).val());
+$('.saveBtn').on("click",function() {
     // get index
     var tmpArray = $(this).val().split('_');
     var index = parseInt(tmpArray[1])-9;
     // get text content to save
     var text = $('#'+$(this).val()).val();
-    console.log("index: "+index);
-    console.log("text: "+text);
     schedule[index][1] = text;
-    console.log(schedule);
     localStorage.setItem("schedule",JSON.stringify(schedule));
 });
 
 // delete buttons
-$('.deleteBtn').on("click",function(){
-    console.log("Delete: " + $(this).val());
+$('.deleteBtn').on("click",function() {
     var tmpArray = $(this).val().split('_');
     var index = parseInt(tmpArray[1])-9;
     // get text content to save
     var text = $('#'+$(this).val()).val("");
-    console.log("index: "+index);
-    console.log("text: "+text);
     schedule[index][1] = "";
-    console.log(schedule);
     localStorage.setItem("schedule",JSON.stringify(schedule));
 });
