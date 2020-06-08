@@ -10,6 +10,10 @@ h6 {
   font-weight: bold;
 }
 
+.col-9 {
+  padding: 0px 6px;
+}
+
 textarea {
   background: transparent;
   border: none;
@@ -38,8 +42,9 @@ textarea {
 
 .row {
   white-space: pre-wrap;
-  height: 80px;
-  border-top: 1px solid white;;
+  margin-bottom: 6px;
+  /* height: 80px; */
+  /* border-top: 1px solid white; */
 }
 
 .hour {
