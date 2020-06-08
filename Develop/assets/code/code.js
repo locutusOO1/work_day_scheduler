@@ -5,15 +5,25 @@ var schedule = [];
 var hoursInWorkDay = 9;
 var container = $('.container');
 
-// initialize the work day 9 hours 9am-5pm
+// initialize the work day to 9 hours 9am-5pm
+// initialize the local storage and the schedule array
 function initDay () {
-    for (var i = 0; i < hoursInWorkDay; i++) {
-        var dayTime = moment(9+i,"HH");
-        schedule.push([dayTime,""]);
-
+    // pull schedule from local storage
+    if (localStorage.getItem("schedule")) {
+        var tmpSchedule = JSON.parse(localStorage.getItem("schedule"));
+        for (var i = 0; i < tmpSchedule.length; i++) {
+            schedule.push([moment(tmpSchedule[i][0]),tmpSchedule[i][1]]);
+        }
+    // or create a new default schedule
+    } else {
+        for (var i = 0; i < hoursInWorkDay; i++) {
+            // starts the work day at 9am
+            var dayTime = moment(9+i,"HH");
+            schedule.push([dayTime,""]);
+        }
+        localStorage.setItem("schedule",JSON.stringify(schedule));
     }
-
-    // need to pull from local storage
+    console.log(schedule);
 }
 
 function buildContent() {
@@ -22,7 +32,7 @@ function buildContent() {
     container.append(newSection);
     // loop through momments in the work day
     for (var i = 0; i < schedule.length; i++) {
-        // determine if momemnt is past, present, or future in order to apply the correct style
+        // determine if moment is past, present, or future in order to apply the correct style
         var timeCompare = "";
         if (schedule[i][0].isBefore(curDayTime,'hour')) {
             timeCompare = "past";
@@ -31,9 +41,8 @@ function buildContent() {
         } else if (schedule[i][0].isAfter(curDayTime,'hour')) {
             timeCompare = "future";
         }
-        console.log(timeCompare);
         // build row with hour lable text area and buttons
-        var newRow = $('<div class="form-group row"><label for="hour_'+ schedule[i][0].hour() +'" class="hour col-1 col-form-label text-right"><h6>'+ schedule[i][0].format('hA') +'</h6></label><div class="col-9"><textarea class="'+ timeCompare +' form-control description time-block" id="hour_'+ schedule[i][0].hour() +'" rows="3">'+ schedule[i][1] +'</textarea></div><button class="col-1 saveBtn"><i class="fas fa-save fa-lg"></i></button><button class="col-1 deleteBtn"><i class="fas fa-trash-alt fa-lg"></i></button>');
+        var newRow = $('<div class="form-group row"><label for="hour_'+ schedule[i][0].hour() +'" class="hour col-1 col-form-label text-right"><h6>'+ schedule[i][0].format('hA') +'</h6></label><div class="col-9"><textarea class="'+ timeCompare +' form-control description time-block" id="hour_'+ schedule[i][0].hour() +'" rows="3">'+ schedule[i][1] +'</textarea></div><button class="col-1 saveBtn" value="hour_'+ schedule[i][0].hour() +'"><i class="fas fa-save fa-lg"></i></button><button class="col-1 deleteBtn" value="hour_'+ schedule[i][0].hour() +'"><i class="fas fa-trash-alt fa-lg"></i></button>');
         newSection.append(newRow);
     }
 }
@@ -46,3 +55,33 @@ interval = setInterval( function() {
 
 initDay();
 buildContent();
+
+// action listeners
+// save buttons
+$('.saveBtn').on("click",function(){
+    console.log("Save: " + $(this).val());
+    // get index
+    var tmpArray = $(this).val().split('_');
+    var index = parseInt(tmpArray[1])-9;
+    // get text content to save
+    var text = $('#'+$(this).val()).val();
+    console.log("index: "+index);
+    console.log("text: "+text);
+    schedule[index][1] = text;
+    console.log(schedule);
+    localStorage.setItem("schedule",JSON.stringify(schedule));
+});
+
+// delete buttons
+$('.deleteBtn').on("click",function(){
+    console.log("Delete: " + $(this).val());
+    var tmpArray = $(this).val().split('_');
+    var index = parseInt(tmpArray[1])-9;
+    // get text content to save
+    var text = $('#'+$(this).val()).val("");
+    console.log("index: "+index);
+    console.log("text: "+text);
+    schedule[index][1] = "";
+    console.log(schedule);
+    localStorage.setItem("schedule",JSON.stringify(schedule));
+});
