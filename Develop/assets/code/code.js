@@ -11,9 +11,9 @@ function initDay () {
     // pull schedule from local storage
     if (localStorage.getItem("schedule")) {
         var tmpSchedule = JSON.parse(localStorage.getItem("schedule"));
-        // recreate moments from saved strings
+        // refresh moments to ensure current day
         for (var i = 0; i < tmpSchedule.length; i++) {
-            schedule.push([moment(tmpSchedule[i][0]),tmpSchedule[i][1]]);
+            schedule.push([moment(9+i,"HH"),tmpSchedule[i][1]]);
         }
     // or create a new default schedule
     } else {
@@ -36,6 +36,7 @@ function buildContent() {
     for (var i = 0; i < schedule.length; i++) {
         // determine if moment is past, present, or future in order to apply the correct style
         var timeCompare = "";
+        console.log()
         if (schedule[i][0].isBefore(curDayTime,'hour')) {
             timeCompare = "past";
         } else if (schedule[i][0].isSame(curDayTime,'hour')) {
