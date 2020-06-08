@@ -3,24 +3,20 @@ body {
   font-size: 16px;
   line-height: 1;
   min-width: 600px;
-  width: auto !important;
 }
 
 h6 {
   font-weight: bold;
 }
 
-.col-9 {
+.input_cont {
   padding: 0px 6px;
 }
 
 textarea {
   background: transparent;
-  border: none;
   resize: none;
   color: #000000;
-  border-left: 1px solid black;
-  padding: 10px;
 }
 
 .jumbotron {
@@ -43,8 +39,6 @@ textarea {
 .row {
   white-space: pre-wrap;
   margin-bottom: 6px;
-  /* height: 80px; */
-  /* border-top: 1px solid white; */
 }
 
 .hour {
@@ -76,7 +70,7 @@ textarea {
   color: white;
 }
 
-.saveBtn i:hover {
+.saveBtn i:hover, .deleteBtn i:hover {
   font-size: 30px;
   transition: all .3s ease-in-out;
 }
@@ -87,9 +81,4 @@ textarea {
   border-bottom-right-radius: 15px;
   background-color: #06AED5;
   color: white;
-}
-
-.deleteBtn i:hover {
-  font-size: 30px;
-  transition: all .3s ease-in-out;
 }

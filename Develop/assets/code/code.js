@@ -79,6 +79,7 @@ $(document).ready(function() {
         var tmpArray = $(this).val().split('_');
         var index = parseInt(tmpArray[1])-dayStart;
         // clear text content
+        $('#'+$(this).val()).val("");
         schedule[index][1] = "";
         localStorage.setItem("schedule",JSON.stringify(schedule));
     });
