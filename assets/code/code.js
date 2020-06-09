@@ -38,7 +38,6 @@ $(document).ready(function() {
         for (var i = 0; i < schedule.length; i++) {
             // determine if moment is past, present, or future in order to apply the correct style
             var timeCompare = "";
-            console.log()
             if (schedule[i][0].isBefore(curDayTime,'hour')) {
                 timeCompare = "past";
             } else if (schedule[i][0].isSame(curDayTime,'hour')) {
@@ -47,7 +46,7 @@ $(document).ready(function() {
                 timeCompare = "future";
             }
             // build row with hour lable text area and buttons
-            var newRow = $('<div class="form-group row"><label for="hour_'+ schedule[i][0].hour() +'" class="hour col-1 col-form-label text-right"><h6>'+ schedule[i][0].format('hA') +'</h6></label><div class="input_cont col-9"><textarea class="'+ timeCompare +' form-control description time-block" id="hour_'+ schedule[i][0].hour() +'" rows="3">'+ schedule[i][1] +'</textarea></div><button class="col-1 saveBtn" value="hour_'+ schedule[i][0].hour() +'"><i class="fas fa-save fa-lg"></i></button><button class="col-1 deleteBtn" value="hour_'+ schedule[i][0].hour() +'"><i class="fas fa-trash-alt fa-lg"></i></button>');
+            var newRow = $('<div class="form-group row"><label for="hour_'+ schedule[i][0].hour() +'" class="hour col-1 col-form-label text-right"><h6>'+ schedule[i][0].format('hA') +'</h6></label><div class="input_cont col-9"><textarea class="'+ timeCompare +' form-control description time-block" id="hour_'+ schedule[i][0].hour() +'" rows="3">'+ schedule[i][1] +'</textarea></div><button class="col-1 saveBtn" value="hour_'+ schedule[i][0].hour() +'"><i class="fas fa-save fa-lg"></i></button><button class="col-1 deleteBtn" value="hour_'+ schedule[i][0].hour() +'"><i class="fas fa-trash-alt fa-lg"></i></button></div>');
             newSection.append(newRow);
         }
     }
