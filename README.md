@@ -18,4 +18,4 @@ A work day scheduler created using dynamic HTML. A work day is assumed to be fro
 * Font Awesome to display icons
 
 ## Screenshot:
-![Screenshot of Work Day Scheduler](https://octodex.github.com/images/yaktocat.png)
+![Screenshot of Work Day Scheduler](https://github.com/locutusOO1/work_day_scheduler/tree/master/assets/screenshots/screenshot.png)
